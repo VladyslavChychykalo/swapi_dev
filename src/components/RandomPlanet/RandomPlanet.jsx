@@ -9,6 +9,7 @@ class RandomPlanet extends Component {
   state = {
     planet: {},
     loading: false,
+    error: false,
   };
 
   componentDidMount() {
@@ -28,8 +29,10 @@ class RandomPlanet extends Component {
     this.swapiService
       .getPlanet(id)
       .then(this.onPlanetLoaded)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        this.setState({
+          error: true,
+        });
       })
       .finally(() =>
         this.setState({
@@ -38,11 +41,17 @@ class RandomPlanet extends Component {
       );
   }
   render() {
-    const { planet, loading } = this.state;
+    const { planet, loading, error } = this.state;
+
+    const neededComponent = loading ? (
+      <Spinner />
+    ) : (
+      <PlanetView planet={planet} />
+    );
 
     return (
       <div className="random-planet jumbotron rounded">
-        {loading ? <Spinner /> : <PlanetView planet={planet} />}
+        {error ? <p>Error</p> : neededComponent}
       </div>
     );
   }
