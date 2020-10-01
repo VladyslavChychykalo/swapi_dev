@@ -1,3 +1,11 @@
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 @keyframes ldio-st6e7z9vrh9-1 {
   0% {
     transform: rotate(0deg);
